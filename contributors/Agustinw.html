@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agustín Wojtyszyn - Desarrollador Full Stack</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2b2d42;
+            --secondary: #8d99ae;
+            --accent: #0077ff;
+            --light: #edf2f4;
+            --dark: #1a1a2e;
+            --success: #06d6a0;
+            --warning: #ffd166;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-header h2 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        .profile-content {
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary);
+            display: inline-block;
+        }
+
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            cursor: default;
+        }
+
+        .badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .badge i {
+            margin-right: 0.5rem;
+        }
+
+        .tools-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .tool {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .tool-icon {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+            filter: grayscale(30%);
+        }
+
+        .tool:hover .tool-icon {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+
+        .tool-name {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            text-align: center;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .contact-btn:hover {
+            background: #005dc1;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 119, 255, 0.3);
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        body.dark-mode {
+            background-color: var(--dark);
+            color: var(--light);
+        }
+
+        body.dark-mode .profile-card {
+            background: #16213e;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .section h3 {
+            color: var(--light);
+            border-bottom-color: var(--accent);
+        }
+
+        body.dark-mode .tool-name {
+            color: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                padding: 1.5rem;
+            }
+
+            .profile-content {
+                padding: 1.5rem;
+            }
+
+            .badge-container, .tools-container {
+                gap: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <div class="profile-header">
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <img src="https://i.imgur.com/uVrViA1.jpeg" alt="Foto de Agustín Wojtyszyn" class="profile-pic" id="profilePic">
+            <h1 id="userName">Agustín Wojtyszyn</h1>
+            <h2 id="userTitle">Desarrollador Full Stack</h2>
+            <div class="social-links">
+                <a href="https://github.com/AgustinWojtyszyn" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/agustin-wojtyszyn-87b524247/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:agustinwojtyszyn99@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="section">
+                <h3>Sobre mí</h3>
+                <p id="userBio">Desarrollador Web Full Stack apasionado por el diseño limpio y funcional. Especializado en crear aplicaciones escalables con las últimas tecnologías.</p>
+            </div>
+
+            <div class="section">
+                <h3>Habilidades principales</h3>
+                <div class="badge-container" id="skillsContainer"></div>
+            </div>
+
+            <div class="section">
+                <h3>Tecnologías que uso</h3>
+                <div class="tools-container" id="toolsContainer"></div>
+            </div>
+
+            <button class="contact-btn" id="contactBtn">Contáctame</button>
+        </div>
+    </div>
+
+    <script>
+        const profileData = {
+            name: "Agustín Wojtyszyn",
+            title: "Desarrollador Full Stack",
+            bio: "Desarrollador Web Full Stack apasionado por el diseño limpio y funcional. Especializado en crear aplicaciones escalables con las últimas tecnologías.",
+            skills: [
+                { name: "JavaScript", icon: "fab fa-js", color: "#f7df1e", textColor: "black" },
+                { name: "Python", icon: "fab fa-python", color: "#3874a4", textColor: "white" },
+                { name: "React", icon: "fab fa-react", color: "#61dafb", textColor: "black" },
+                { name: "Node.js", icon: "fab fa-node-js", color: "#68a063", textColor: "white" },
+                { name: "HTML5", icon: "fab fa-html5", color: "#e34f26", textColor: "white" },
+                { name: "CSS3", icon: "fab fa-css3-alt", color: "#1572b6", textColor: "white" },
+                { name: "Git", icon: "fab fa-git-alt", color: "#f05032", textColor: "white" },
+                { name: "Docker", icon: "fab fa-docker", color: "#2496ed", textColor: "white" }
+            ],
+            tools: [
+                { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" },
+                { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" },
+                { name: "Linux", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" },
+                { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" },
+                { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" },
+                { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" },
+                { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" }
+            ]
+        };
+
+        const userName = document.getElementById('userName');
+        const userTitle = document.getElementById('userTitle');
+        const userBio = document.getElementById('userBio');
+        const skillsContainer = document.getElementById('skillsContainer');
+        const toolsContainer = document.getElementById('toolsContainer');
+        const contactBtn = document.getElementById('contactBtn');
+        const themeToggle = document.getElementById('themeToggle');
+        const profilePic = document.getElementById('profilePic');
+        const body = document.body;
+
+        function loadProfile() {
+            userName.textContent = profileData.name;
+            userTitle.textContent = profileData.title;
+            userBio.textContent = profileData.bio;
+
+            profileData.skills.forEach(skill => {
+                const badge = document.createElement('div');
+                badge.className = 'badge';
+                badge.innerHTML = `<i class="${skill.icon}"></i> ${skill.name}`;
+                badge.style.backgroundColor = skill.color;
+                badge.style.color = skill.textColor;
+                skillsContainer.appendChild(badge);
+            });
+
+            profileData.tools.forEach(tool => {
+                const toolElement = document.createElement('div');
+                toolElement.className = 'tool';
+
+                const icon = document.createElement('img');
+                icon.className = 'tool-icon';
+                icon.src = tool.icon;
+                icon.alt = tool.name;
+
+                const name = document.createElement('span');
+                name.className = 'tool-name';
+                name.textContent = tool.name;
+
+                toolElement.appendChild(icon);
+                toolElement.appendChild(name);
+                toolsContainer.appendChild(toolElement);
+            });
+        }
+
+        contactBtn.addEventListener('click', () => {
+            window.location.href = "mailto:agustinwojtyszyn99@gmail.com";
+        });
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            themeToggle.innerHTML = body.classList.contains('dark-mode')
+                ? '<i class="fas fa-sun"></i>'
+                : '<i class="fas fa-moon"></i>';
+        });
+
+        profilePic.style.opacity = '0';
+        setTimeout(() => {
+            profilePic.style.opacity = '1';
+        }, 300);
+
+        document.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+</body>
+</html>
